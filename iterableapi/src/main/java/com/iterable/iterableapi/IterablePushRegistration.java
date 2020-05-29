@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-
+import com.huawei.hms.aaid.HmsInstanceId;
+import com.huawei.hms.common.ApiException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -115,7 +115,7 @@ class IterablePushRegistration extends AsyncTask<IterablePushRegistrationData, V
             return instance.getFirebaseToken();
         }
 
-        static String getFirebaseToken(String senderId, String platform) throws IOException {
+        static String getFirebaseToken(String senderId, String platform) throws ApiException {
             return instance.getFirebaseToken(senderId, platform);
         }
 
@@ -129,12 +129,12 @@ class IterablePushRegistration extends AsyncTask<IterablePushRegistrationData, V
             }
 
             String getFirebaseToken() {
-                FirebaseInstanceId instanceID = FirebaseInstanceId.getInstance();
+                HmsInstanceId instanceID = HmsInstanceId.getInstance(null);
                 return instanceID.getToken();
             }
 
-            String getFirebaseToken(String senderId, String platform) throws IOException {
-                FirebaseInstanceId instanceId = FirebaseInstanceId.getInstance();
+            String getFirebaseToken(String senderId, String platform) throws ApiException {
+                HmsInstanceId instanceId = HmsInstanceId.getInstance(null);
                 return instanceId.getToken(senderId, platform);
             }
 

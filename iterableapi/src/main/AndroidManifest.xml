@@ -5,10 +5,10 @@
 
         <!--FCM-->
         <service
-            android:name="com.iterable.iterableapi.IterableFirebaseMessagingService"
+            android:name="com.iterable.iterableapi.IterableHmsMessageService"
             android:exported="false">
             <intent-filter android:priority="-1">
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 

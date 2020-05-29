@@ -3,8 +3,7 @@ package com.iterable.iterableapi;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.firebase.messaging.RemoteMessage;
-
+import com.huawei.hms.push.RemoteMessage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,13 +28,13 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class IterableFirebaseMessagingServiceTest extends BaseTest {
+public class IterableHmsMessageServiceTest extends BaseTest {
 
     private MockWebServer server;
     private IterableApi originalApi;
     private IterableApi apiMock;
 
-    private ServiceController<IterableFirebaseMessagingService> controller;
+    private ServiceController<IterableHmsMessageService> controller;
     private IterableNotificationHelper.IterableNotificationHelperImpl originalNotificationHelper;
     private IterableNotificationHelper.IterableNotificationHelperImpl notificationHelperSpy;
 
@@ -46,8 +45,8 @@ public class IterableFirebaseMessagingServiceTest extends BaseTest {
         server = new MockWebServer();
         IterableApi.overrideURLEndpointPath(server.url("").toString());
 
-        controller = Robolectric.buildService(IterableFirebaseMessagingService.class);
-        Intent intent = new Intent(RuntimeEnvironment.application, IterableFirebaseMessagingService.class);
+        controller = Robolectric.buildService(IterableHmsMessageService.class);
+        Intent intent = new Intent(RuntimeEnvironment.application, IterableHmsMessageService.class);
         controller.withIntent(intent).startCommand(0, 0);
 
         originalApi = IterableApi.sharedInstance;
@@ -117,7 +116,7 @@ public class IterableFirebaseMessagingServiceTest extends BaseTest {
     public void testIsGhostPushWithGhostPushMessage() throws Exception {
         RemoteMessage.Builder builder = new RemoteMessage.Builder("1234@gcm.googleapis.com");
         builder.setData(IterableTestUtils.getMapFromJsonResource("push_payload_ghost_push.json"));
-        assertTrue(IterableFirebaseMessagingService.isGhostPush(builder.build()));
+        assertTrue(IterableHmsMessageService.isGhostPush(builder.build()));
         verify(notificationHelperSpy).isGhostPush(any(Bundle.class));
     }
 
@@ -125,7 +124,7 @@ public class IterableFirebaseMessagingServiceTest extends BaseTest {
     public void testIsGhostPushWithNotificationMessage() throws Exception {
         RemoteMessage.Builder builder = new RemoteMessage.Builder("1234@gcm.googleapis.com");
         builder.setData(IterableTestUtils.getMapFromJsonResource("push_payload_legacy_deep_link.json"));
-        assertFalse(IterableFirebaseMessagingService.isGhostPush(builder.build()));
+        assertFalse(IterableHmsMessageService.isGhostPush(builder.build()));
         verify(notificationHelperSpy).isGhostPush(any(Bundle.class));
     }
 

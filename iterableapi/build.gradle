@@ -7,7 +7,7 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 27
 
         buildConfigField "String", "ITERABLE_SDK_VERSION", "\"3.2.3\""
@@ -31,7 +31,8 @@ dependencies {
     api 'androidx.legacy:legacy-support-v4:1.0.0'
     api 'androidx.appcompat:appcompat:1.0.0'
     api 'androidx.annotation:annotation:1.0.0'
-    api 'com.google.firebase:firebase-messaging:17.4.0'
+//    api 'com.google.firebase:firebase-messaging:17.4.0'
+    api 'com.huawei.hms:push:4.0.3.301'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'androidx.test:runner:1.2.0'
